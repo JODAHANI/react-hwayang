@@ -1,6 +1,6 @@
 import React from "react";
 
-const WorshipResult = () => {
+const WorshipResult = (): JSX.Element => {
   return <div>WorshipResult</div>;
 };
 

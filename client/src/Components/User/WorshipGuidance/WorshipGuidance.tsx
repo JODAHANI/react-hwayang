@@ -1,6 +1,6 @@
-import "../../index.css";
+import "../../../index.css";
 
-const WorshipGuidance = () => {
+const WorshipGuidance = (): JSX.Element => {
   const imgClickHandler = () => {
     window.open("img/worship-time.jpg");
   };

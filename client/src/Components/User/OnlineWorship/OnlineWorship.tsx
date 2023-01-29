@@ -12,6 +12,7 @@ const OnlineWorship = (): JSX.Element => {
         <a
           className="inline-block text-2xl max-sm:text-sm font-medium relative p-4 mt-5 after:content-[''] after:block after:w-4/12 after:absolute after:bottom-1 after:left-1/2 after:-translate-x-1/2	after: after:border-teal-800	 after:border-b-2 max-sm:after:border-b after:rounded-3xl hover:after:w-8/12 after:duration-500"
           target="_blank"
+          rel="noopener noreferrer"
           href="https://www.youtube.com/@anointing3545"
         >
           온라인 예배 LINK

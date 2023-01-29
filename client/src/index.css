@@ -23,19 +23,27 @@ code {
   overflow: hidden;
 }
 
+.overflow-screen {
+  width: 100%;
+  height: calc(100vh);
+}
+
+/* 네비 호버시 컬러 변경.*/
+.nav-link:hover {
+  color: #3ed1fe !important;
+}
 
 .b {
   border: 1px solid red;
 }
 
+
 @media (max-width: 640px) {
-  a {
-    padding-bottom: 10px !important;
-  }
+
 
   .full-screen {
     width: 100%;
-    height: calc(100vh - 110px);
+    height: calc(100vh - 120px);
   }
 
   .worship-time {

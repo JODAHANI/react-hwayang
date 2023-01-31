@@ -20,14 +20,12 @@ const Login = (props: any): JSX.Element => {
       password,
     };
     axios.post("/api/users/login", userData).then((res) => {
-      console.log(res.data);
       if (res.data.loginSuccess) {
         setAccount("");
         setPassword("");
         props.history.push("/");
       } else {
         setPassword("");
-        alert("뭐시고");
       }
     });
   };
@@ -77,14 +75,6 @@ const Login = (props: any): JSX.Element => {
               to="/sign-up"
             >
               회원가입
-            </Link>
-          </div>
-          <div>
-            <Link
-              className="mt-5 block mx-auto font-bold text-sm text-[#bbb] hover:text-[#777] text-center"
-              to="/admin"
-            >
-              관리자페이지
             </Link>
           </div>
         </form>

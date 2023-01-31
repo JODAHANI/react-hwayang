@@ -1,6 +1,6 @@
 import "../../../index.css";
 
-const WorshipGuidance = (): JSX.Element => {
+const WorshipGuide = (): JSX.Element => {
   const imgClickHandler = () => {
     window.open("img/worship-time.jpg");
   };
@@ -16,4 +16,4 @@ const WorshipGuidance = (): JSX.Element => {
   );
 };
 
-export default WorshipGuidance;
+export default WorshipGuide;

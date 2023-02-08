@@ -1,6 +1,6 @@
 import "../../../index.css";
 
-const LoadingModal = () => {
+const Loading = () => {
   return (
     <>
       <div className="modal fixed w-full h-screen bg-white bg-opacity-60 flex justify-center items-center border border-red transition-all">
@@ -14,4 +14,4 @@ const LoadingModal = () => {
   );
 };
 
-export default LoadingModal;
+export default Loading;

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
-
+import SuccessMessage from "../../layout/SuccessMessage/SuccessMessage";
+import ErrorMessage from "../../layout/ErrorMessage/ErrorMessage";
 import "../../../index.css";
 
 const inputCss =
@@ -22,10 +23,13 @@ interface userSchema {
   checkPassword: string;
   name: string;
   phoneNumber: string;
-  position: object | number;
+  position: {
+    id: string | number;
+    position: string;
+  };
 }
 
-const SignUp = (): JSX.Element => {
+const SignUp = (props): JSX.Element => {
   const newUserSchema: userSchema = {
     account: "",
     password: "",
@@ -34,7 +38,12 @@ const SignUp = (): JSX.Element => {
     phoneNumber: "",
     position: { id: 0, position: "--직분선택--" },
   };
+
   const [newUserData, setNewUserData] = useState(newUserSchema);
+  const [signUpError, setSignUpError] = useState(false);
+  const [signUpErrorMessage, setsignUpErrorMessage] = useState("");
+  const [signUpSuccess, setSignUpSuccess] = useState(false);
+
   const accountChangeHandler = (event: any) => {
     setNewUserData({
       ...newUserData,
@@ -76,26 +85,40 @@ const SignUp = (): JSX.Element => {
   const formSubmitHandler = (event: any) => {
     event.preventDefault();
     if (newUserData.account.length < 3) {
-      console.log("아이디는 3자 보다 길어야함.");
+      setsignUpErrorMessage("아이디는 3자 보다 길어야함.");
+      setSignUpError(true);
       return;
     }
     if (newUserData.password.length <= 3) {
-      console.log("비밀번호 길이가 3자 이하입니다.");
+      setsignUpErrorMessage("비밀번호 길이가 3자 이하입니다.");
+      setSignUpError(true);
       return;
     }
     if (newUserData.password !== newUserData.checkPassword) {
-      console.log("비밀번호다름");
+      setsignUpErrorMessage("비밀번호다름");
+      setSignUpError(true);
       return;
     }
     if (newUserData.name.length < 2) {
-      console.log("이름을 정확하게 입력해주세요.");
+      setsignUpErrorMessage("이름을 정확하게 입력해주세요.");
+      setSignUpError(true);
     }
-    if (newUserData.position === 0) {
-      console.log("직분선택하셈");
+    if (newUserData.position.id === 0) {
+      setsignUpErrorMessage("직분을 선택해주세요.");
+      setSignUpError(true);
       return;
     }
+
     axios.post("/api/users/sign-up", newUserData).then((res) => {
-      console.log(res.data);
+      if (res.data.success) {
+        setSignUpSuccess(true);
+        setTimeout(() => {
+          props.history.push("/login");
+        }, 1500);
+      } else {
+        setsignUpErrorMessage(res.data.err);
+        setSignUpError(true);
+      }
     });
   };
 
@@ -106,14 +129,27 @@ const SignUp = (): JSX.Element => {
   };
 
   return (
-    <div className="bg-[#f0f0f0] flex justify-center h-screen ">
-      <div className="max-w-xs py-20 ">
+    <div className="bg-[#f0f0f0] flex justify-center h-screen">
+      <div className="max-w-xs">
         <form
-          className="bg-white overflow- shadow-md rounded px-8 pt-8 pb-8 mb-4"
+          className="bg-white shadow-md rounded px-8 py-8 my-10 "
           onSubmit={formSubmitHandler}
           onKeyPress={formEnteredHandler}
         >
-          <div className="mb-6">
+          {signUpError && !signUpSuccess && (
+            <ErrorMessage>{signUpErrorMessage}</ErrorMessage>
+          )}
+          {signUpSuccess && (
+            <>
+              <p className="mb-1 text-[#006600] text-center text-sm font-semibold">
+                회원가입 성공.
+              </p>
+              <SuccessMessage>
+                1초 뒤에 로그인페이지로 이동합니다.
+              </SuccessMessage>
+            </>
+          )}
+          <div className="mb-4">
             <label className={labelCss} htmlFor="account">
               아이디
             </label>
@@ -126,7 +162,7 @@ const SignUp = (): JSX.Element => {
               onChange={accountChangeHandler}
             />
           </div>
-          <div className="mb-6">
+          <div className="mb-4">
             <label className={labelCss} htmlFor="password">
               비밀번호
             </label>
@@ -140,7 +176,7 @@ const SignUp = (): JSX.Element => {
               autoComplete="on"
             />
           </div>
-          <div className="mb-6">
+          <div className="mb-4">
             <label className={labelCss} htmlFor="check-password">
               비밀번호 확인
             </label>
@@ -154,7 +190,7 @@ const SignUp = (): JSX.Element => {
               autoComplete="on"
             />
           </div>
-          <div className="mb-6">
+          <div className="mb-4">
             <label className={labelCss} htmlFor="name">
               이름
             </label>
@@ -167,7 +203,7 @@ const SignUp = (): JSX.Element => {
               onChange={nameChangeHandler}
             />
           </div>
-          <div className="mb-6">
+          <div className="mb-4">
             <label className={labelCss} htmlFor="phone">
               휴대폰번호
             </label>
@@ -180,7 +216,7 @@ const SignUp = (): JSX.Element => {
               onChange={phoneNumberChangeHandler}
             />
           </div>
-          <div className="mb-6">
+          <div className="mb-4">
             <label className={labelCss} htmlFor="Email">
               직분
             </label>
@@ -191,7 +227,7 @@ const SignUp = (): JSX.Element => {
               defaultValue={0}
               onChange={positionChangeHandler}
             >
-              <option value={0} disabled>
+              <option value={newUserData.position.id} disabled>
                 --직분선택--
               </option>
               {positions.map((position, idx) => (

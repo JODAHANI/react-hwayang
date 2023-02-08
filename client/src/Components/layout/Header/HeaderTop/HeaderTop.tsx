@@ -1,48 +1,73 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "../../../../index.css";
-
 import { Routes, RoutesText } from "../../../../constants/routeItems";
-import { RouteType } from "../../../../constants/types";
-// 모바일
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch, useSelector } from "react-redux";
+import { RouteType, ReduxStateType } from "../../../../constants/types";
+import { userLogout } from "../../../../_actions/user_actions";
 
 type NaviItemType = {
   item: RouteType;
 };
 
-const { login, signUp, prayerRequest, graceSharing } = Routes;
-const { loginText, signUpText, prayerRequestText, graceSharingText } =
-  RoutesText;
-
+const { login, signUp, prayerRequest, graceSharing, logout, myInfo } = Routes;
+const {
+  loginText,
+  signUpText,
+  prayerRequestText,
+  graceSharingText,
+  logoutText,
+  myInfoText,
+} = RoutesText;
 const deskTopLeftNavigationItem = [
   { route: prayerRequest, text: prayerRequestText },
   { route: graceSharing, text: graceSharingText },
 ];
-
 const deskTopRightNavigationItem = [
   { route: login, text: loginText },
   { route: signUp, text: signUpText },
 ];
 
+// 데스크탑 CSS
 const headerTopCss = "flex justify-between items-center m-auto p-6 px-5";
 
+// 모바일 CSS
+const mobileSidebarContainerCss = "fixed z-50 top-0 w-full h-full bg-[#000]/80";
+const mobileSidebarInnerCss =
+  "absolute top-0 w-3/5 h-full bg-[#fff] transition-all  duration-100";
+const rounded = "rounded-br-lg rounded-tr-lg";
+const spanCss = "block w-full h-0.5 absolute bg-[#000] left-0 cursor-pointer";
+
 const HeaderTop = (): JSX.Element => {
+  const user = useSelector((state: ReduxStateType) => state.user);
+
   return (
     <div className="header-top ">
       <div className={`desk-top ${headerTopCss}`}>
-        <DeskTopView />
+        <DeskTopView user={user} />
       </div>
       <div className={`mobile ${headerTopCss}`}>
-        <MobileView />
+        <MobileView user={user} />
       </div>
     </div>
   );
 };
 
 // 데스크탑View 컴포넌트
-const DeskTopView = () => {
+const DeskTopView = ({ user }) => {
+  const dispatch: any = useDispatch();
+  const history = useHistory();
+
+  const logoutHandler = () => {
+    dispatch(userLogout()).then((res) => {
+      if (res.payload.success) {
+        history.push("/login");
+      }
+    });
+  };
+
   return (
     <>
       <div className="text-[#333] font-bold">
@@ -59,23 +84,58 @@ const DeskTopView = () => {
       </Link>
       <div>
         <ul className="flex justify-center items-center text-xs text-[#333] font-bold ">
-          {deskTopRightNavigationItem.map((item) => (
-            <NavigationItem key={item.route} item={item} />
-          ))}
+          {user.userData && !user.userData.isAuth && (
+            <>
+              {deskTopRightNavigationItem.map((item) => (
+                <NavigationItem key={item.route} item={item} />
+              ))}
+            </>
+          )}
+          {user.userData && user.userData.isAuth && (
+            <>
+              <li className="px-3">
+                <Link to={myInfo}>{myInfoText}</Link>
+              </li>
+              <li className="px-3">
+                <Link to="" onClick={logoutHandler}>
+                  {logoutText}
+                </Link>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </>
   );
 };
-
-const mobileSidebarContainerCss = "fixed z-50 top-0 w-full h-full bg-[#000]/80";
-const mobileSidebarInnerCss =
-  "absolute top-0 w-3/5 h-full bg-[#fff] transition-all  duration-100";
-const rounded = "rounded-br-lg rounded-tr-lg";
-const spanCss = "block w-full h-0.5 absolute bg-[#000] left-0 cursor-pointer";
+// if (user.userData && !user.userData.isAuth) {
+//   return (
+//     <>
+//       <div className="text-[#333] font-bold">
+//         <ul className="flex justify-center items-center text-xs ">
+//           {deskTopLeftNavigationItem.map((item) => (
+//             <NavigationItem key={item.route} item={item} />
+//           ))}
+//         </ul>
+//       </div>
+//       <Link to="/">
+//         <h2 className="text-3xl font-black hover:text-zinc-700 transition-all tracking-wider max-md:text-2xl">
+//           Anointing Hwayang
+//         </h2>
+//       </Link>
+//       <div>
+//         <ul className="flex justify-center items-center text-xs text-[#333] font-bold ">
+//           {deskTopRightNavigationItem.map((item) => (
+//             <NavigationItem key={item.route} item={item} />
+//           ))}
+//         </ul>
+//       </div>
+//     </>
+//   );
+// }
 
 //모바일 View 컴포넌트
-const MobileView = (): JSX.Element => {
+const MobileView = ({ user }): JSX.Element => {
   const [inputCheckbox, setinputCheckbox] = useState(false);
 
   const inputCheckboxHandler = () => {

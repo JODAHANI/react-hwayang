@@ -13,7 +13,7 @@ import GraceSharing from "./Components/pages/GraceSharing/GraceSharing";
 import NotFound from "./Components/layout/NotFound/NotFound";
 import { Routes } from "./constants/routeItems";
 import Auth from "./Components/pages/Hoc/Auth";
-import Loading from "./Components/layout/Loading/Loading";
+import MyPage from "./Components/pages/MyPage/Mypage";
 
 const {
   home,
@@ -26,6 +26,7 @@ const {
   quietTime,
   prayerRequest,
   graceSharing,
+  myPage,
 } = Routes;
 
 const App = () => {
@@ -51,6 +52,7 @@ const App = () => {
         <Route exact path={quietTime} component={Auth(WorshipGuide, null)} />
         <Route exact path={prayerRequest} component={Auth(PrayRequest, null)} />
         <Route exact path={graceSharing} component={Auth(GraceSharing, null)} />
+        <Route exact path={myPage} component={Auth(MyPage, null)} />
         <Route path="*" component={Auth(NotFound, null)}></Route>
       </Switch>
     </div>

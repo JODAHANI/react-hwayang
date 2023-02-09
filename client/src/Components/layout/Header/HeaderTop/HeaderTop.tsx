@@ -12,14 +12,14 @@ type NaviItemType = {
   item: RouteType;
 };
 
-const { login, signUp, prayerRequest, graceSharing, logout, myInfo } = Routes;
+const { login, signUp, prayerRequest, graceSharing, myPage } = Routes;
 const {
   loginText,
   signUpText,
   prayerRequestText,
   graceSharingText,
   logoutText,
-  myInfoText,
+  myPageText,
 } = RoutesText;
 const deskTopLeftNavigationItem = [
   { route: prayerRequest, text: prayerRequestText },
@@ -31,9 +31,10 @@ const deskTopRightNavigationItem = [
 ];
 
 // 데스크탑 CSS
-const headerTopCss = "flex justify-between items-center m-auto p-6 px-5";
+const deskTopheaderTopCss = "flex justify-between items-center m-auto p-6 px-5";
 
 // 모바일 CSS
+const mobileHeaderTopCss = "flex justify-between items-center m-auto py-2 px-5";
 const mobileSidebarContainerCss = "fixed z-50 top-0 w-full h-full bg-[#000]/80";
 const mobileSidebarInnerCss =
   "absolute top-0 w-3/5 h-full bg-[#fff] transition-all  duration-100";
@@ -42,13 +43,12 @@ const spanCss = "block w-full h-0.5 absolute bg-[#000] left-0 cursor-pointer";
 
 const HeaderTop = (): JSX.Element => {
   const user = useSelector((state: ReduxStateType) => state.user);
-
   return (
-    <div className="header-top ">
-      <div className={`desk-top ${headerTopCss}`}>
+    <div className="header-top">
+      <div className={`desk-top ${deskTopheaderTopCss}`}>
         <DeskTopView user={user} />
       </div>
-      <div className={`mobile ${headerTopCss}`}>
+      <div className={`mobile ${mobileHeaderTopCss}`}>
         <MobileView user={user} />
       </div>
     </div>
@@ -59,7 +59,6 @@ const HeaderTop = (): JSX.Element => {
 const DeskTopView = ({ user }) => {
   const dispatch: any = useDispatch();
   const history = useHistory();
-
   const logoutHandler = () => {
     dispatch(userLogout()).then((res) => {
       if (res.payload.success) {
@@ -67,7 +66,36 @@ const DeskTopView = ({ user }) => {
       }
     });
   };
-
+  if (user.userData && user.userData.isAuth) {
+    return (
+      <>
+        <div className="text-[#333] font-bold">
+          <ul className="flex justify-center items-center text-xs ">
+            {deskTopLeftNavigationItem.map((item) => (
+              <NavigationItem key={item.route} item={item} />
+            ))}
+          </ul>
+        </div>
+        <Link to="/">
+          <h2 className="text-3xl font-black hover:text-zinc-700 transition-all tracking-wider max-md:text-2xl">
+            Anointing Hwayang
+          </h2>
+        </Link>
+        <div>
+          <ul className="flex justify-center items-center text-xs text-[#333] font-bold ">
+            <li className="px-3">
+              <Link to={myPage}>{myPageText}</Link>
+            </li>
+            <li className="px-3">
+              <Link to="" onClick={logoutHandler}>
+                {logoutText}
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </>
+    );
+  }
   return (
     <>
       <div className="text-[#333] font-bold">
@@ -84,55 +112,14 @@ const DeskTopView = ({ user }) => {
       </Link>
       <div>
         <ul className="flex justify-center items-center text-xs text-[#333] font-bold ">
-          {user.userData && !user.userData.isAuth && (
-            <>
-              {deskTopRightNavigationItem.map((item) => (
-                <NavigationItem key={item.route} item={item} />
-              ))}
-            </>
-          )}
-          {user.userData && user.userData.isAuth && (
-            <>
-              <li className="px-3">
-                <Link to={myInfo}>{myInfoText}</Link>
-              </li>
-              <li className="px-3">
-                <Link to="" onClick={logoutHandler}>
-                  {logoutText}
-                </Link>
-              </li>
-            </>
-          )}
+          {deskTopRightNavigationItem.map((item) => (
+            <NavigationItem key={item.route} item={item} />
+          ))}
         </ul>
       </div>
     </>
   );
 };
-// if (user.userData && !user.userData.isAuth) {
-//   return (
-//     <>
-//       <div className="text-[#333] font-bold">
-//         <ul className="flex justify-center items-center text-xs ">
-//           {deskTopLeftNavigationItem.map((item) => (
-//             <NavigationItem key={item.route} item={item} />
-//           ))}
-//         </ul>
-//       </div>
-//       <Link to="/">
-//         <h2 className="text-3xl font-black hover:text-zinc-700 transition-all tracking-wider max-md:text-2xl">
-//           Anointing Hwayang
-//         </h2>
-//       </Link>
-//       <div>
-//         <ul className="flex justify-center items-center text-xs text-[#333] font-bold ">
-//           {deskTopRightNavigationItem.map((item) => (
-//             <NavigationItem key={item.route} item={item} />
-//           ))}
-//         </ul>
-//       </div>
-//     </>
-//   );
-// }
 
 //모바일 View 컴포넌트
 const MobileView = ({ user }): JSX.Element => {
@@ -168,7 +155,11 @@ const MobileView = ({ user }): JSX.Element => {
           >
             <div
               className={`${mobileSidebarInnerCss} ${rounded}  left-0 ease-in `}
-            ></div>
+            >
+              <p>임시1</p>
+              <p>임시2</p>
+              <p>임시3</p>
+            </div>
           </div>
         ) : (
           <div className={`${mobileSidebarContainerCss} -left-full`}>
@@ -185,13 +176,23 @@ const MobileView = ({ user }): JSX.Element => {
       </Link>
       <div className="text-sm font-medium w-4	h-5">
         <div className=" flex justify-center items-center">
-          <Link className="flex justify-center items-center" to={login}>
-            <FontAwesomeIcon
-              className="my-0.5 text-[#000]"
-              icon={faUser}
-              size="lg"
-            />
-          </Link>
+          {user.userData && !user.userData.isAuth ? (
+            <Link className="flex justify-center items-center" to={login}>
+              <FontAwesomeIcon
+                className="my-0.5 text-[#000]"
+                icon={faUser}
+                size="lg"
+              />
+            </Link>
+          ) : (
+            <Link className="flex justify-center items-center" to={myPage}>
+              <FontAwesomeIcon
+                className="my-0.5 text-[#000]"
+                icon={faUser}
+                size="lg"
+              />
+            </Link>
+          )}
         </div>
       </div>
     </>

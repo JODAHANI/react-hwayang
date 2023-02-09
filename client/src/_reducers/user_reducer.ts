@@ -5,7 +5,7 @@ import {
   LOGOUT,
 } from "../_actions/types";
 
-export default function (state = {}, action: any) {
+function userReducer(state = {}, action: any) {
   switch (action.type) {
     case LOGIN_USER:
       return { ...state, loginSucces: action.payload };
@@ -14,8 +14,10 @@ export default function (state = {}, action: any) {
     case AUTH_USER:
       return { ...state, userData: action.payload };
     case LOGOUT:
-      return { ...state, userData: { isAuth: false } };
+      return {};
     default:
       return state;
   }
 }
+
+export default userReducer;

@@ -11,7 +11,7 @@ export const Routes = {
   prayerRequest: `/prayer-request`,
   graceSharing: "/grace-sharing",
   logout: "/logout",
-  myInfo: "/my-information",
+  myPage: "/my-page",
 };
 
 export const RoutesText = {
@@ -26,5 +26,5 @@ export const RoutesText = {
   prayerRequestText: "기도요청",
   graceSharingText: "은혜공유",
   logoutText: "로그아웃",
-  myInfoText: "내정보",
+  myPageText: "내정보",
 };

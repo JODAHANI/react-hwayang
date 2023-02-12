@@ -10,8 +10,8 @@ var settings = {
   slidesToShow: 1,
   slidesToScroll: 1,
   arrows: false,
-  autoPlay: false,
-  autoplaySpeed: 2000,
+  autoplay: true,
+  autoplaySpeed: 3000,
 };
 
 // 테스트

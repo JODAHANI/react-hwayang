@@ -1,7 +1,7 @@
-import { auth } from "../../../_actions/user_actions";
+import { auth } from "../../_actions/user_actions";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ReduxStateType } from "../../../constants/types";
+import { ReduxStateType } from "../../constants/types";
 const Auth: Function = (
   HigherOrderComponent: any,
   option: null | boolean,

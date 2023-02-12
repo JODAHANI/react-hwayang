@@ -20,7 +20,7 @@
     "forceConsistentCasingInFileNames": true /* 같은 파일에 대한 일관되지 않은 케이스 참조 허용금지 여부 */,
     "noEmit": true /* 결과 파일 emit 여부 */,
     "esModuleInterop": true /* 모든 import의 namespace 생성을 통한 CommonJS 와 ES모듈 간 상호운용 여부 */,
-    "module": "esnext" /* 생성될 모듈 코드: 'none', 'commonjs', 'amd' ... */,
+    "module": "ES6" /* 생성될 모듈 코드: 'none', 'commonjs', 'amd' ... */,
     "moduleResolution": "node" /* 모듈 분석방법: 'node'(Node.js) or 'classic'(TS) */,
     "isolatedModules": true /* 각 파일을 별도모듈로 변환 */,
     "jsx": "preserve" /* JSX 코드생성 설정: 'react', 'react-native' ... */,

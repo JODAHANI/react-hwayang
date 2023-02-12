@@ -69,6 +69,16 @@ code {
   height: 25vh;
 }
 
+.sub-navi-item {
+  width: 7vh;
+}
+
+/* 서브 네비 아이콘 */
+.sub-navi-img {
+  max-width: 80px;
+  max-height: 80px;
+}
+
 @media (max-width: 640px) {
 
   .desk-top {
@@ -91,6 +101,12 @@ code {
   .notification-img {
     height: 33vh !important;
     border-radius: 0;
+  }
+
+  .sub-navi-img {
+    border-radius: 10px;
+    max-width: 50px;
+    max-height: 50px;
   }
 
 }

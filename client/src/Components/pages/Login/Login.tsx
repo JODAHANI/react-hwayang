@@ -63,51 +63,55 @@ const Login = (props: any): JSX.Element => {
               <SuccessMessage>{signUpSuccessMessage}</SuccessMessage>
             </>
           )}
-          <div className="mb-4">
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="account"
-              type="text"
-              placeholder="아이디"
-              value={account}
-              onChange={accountChangeHandler}
-            />
-          </div>
-          <div className="mb-2">
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-              id="password"
-              type="password"
-              autoComplete="on"
-              placeholder="비밀번호"
-              value={password}
-              onChange={passwordChangeHandler}
-            />
-          </div>
+          {!loginSuccess && (
+            <>
+              <div className="mb-4">
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="account"
+                  type="text"
+                  placeholder="아이디"
+                  value={account}
+                  onChange={accountChangeHandler}
+                />
+              </div>
+              <div className="mb-2">
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  id="password"
+                  type="password"
+                  autoComplete="on"
+                  placeholder="비밀번호"
+                  value={password}
+                  onChange={passwordChangeHandler}
+                />
+              </div>
 
-          {loginError && !loginSuccess && (
-            <ErrorMessage>{loginErrorMessage}</ErrorMessage>
+              {loginError && !loginSuccess && (
+                <ErrorMessage>{loginErrorMessage}</ErrorMessage>
+              )}
+              <button
+                className="block w-full bg-[#35C5F0] hover:bg-[#44bee3] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-6"
+                type="submit"
+              >
+                로그인
+              </button>
+              <div className="flex items-center justify-around	">
+                <Link
+                  className="inline-block align-baseline font-bold text-sm text-[#999] hover:text-[#777]"
+                  to="/user/password"
+                >
+                  비밀번호 재설정
+                </Link>
+                <Link
+                  className="inline-block align-baseline font-bold text-sm text-[#999] hover:text-[#777]"
+                  to="/sign-up"
+                >
+                  회원가입
+                </Link>
+              </div>
+            </>
           )}
-          <button
-            className="block w-full bg-[#35C5F0] hover:bg-[#44bee3] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-6"
-            type="submit"
-          >
-            로그인
-          </button>
-          <div className="flex items-center justify-around	">
-            <Link
-              className="inline-block align-baseline font-bold text-sm text-[#999] hover:text-[#777]"
-              to="/user/password"
-            >
-              비밀번호 재설정
-            </Link>
-            <Link
-              className="inline-block align-baseline font-bold text-sm text-[#999] hover:text-[#777]"
-              to="/sign-up"
-            >
-              회원가입
-            </Link>
-          </div>
         </form>
       </div>
     </div>

@@ -1,8 +1,8 @@
-export type RouteType = {
+export interface RouteType {
   route: string;
   text: string;
-};
+}
 
-export type ReduxStateType = {
+export interface ReduxStateType {
   user: object;
-};
+}

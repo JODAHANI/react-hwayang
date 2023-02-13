@@ -1,4 +1,5 @@
 import "../../../index.css";
+import NewFamilyNotification from "./NewFamilyNotification/NewFamilyNotification";
 import Notification from "./Notification/Notification";
 import SubNavigation from "./SubNavigation/SubNavigation";
 
@@ -7,6 +8,7 @@ const Home = (): JSX.Element => {
     <div className="">
       <Notification />
       <SubNavigation />
+      <NewFamilyNotification />
     </div>
   );
 };

@@ -43,10 +43,13 @@ const subNavigationItems = [
 ];
 const SubNavigation = () => {
   return (
-    <section className="max-w-screen-2xl m-auto py-28 max-md:py-9">
+    // border-2 border-red-500
+    <section className="max-w-screen-2xl m-auto py-5">
       <nav className="w-4/5 m-auto">
-        {/* <nav className="w-4/5 m-auto border-2 border-blue-400"> */}
-        <ul className="flex justify-around	">
+        <h2 className="text-left font-bold text-2xl text-[#222] py-8 max-sm:text-lg max-sm:py-0">
+          SHINE
+        </h2>
+        <ul className="flex justify-around">
           {subNavigationItems.map((item) => (
             <SubNavigationItem key={item.route} item={item} />
           ))}
@@ -59,14 +62,13 @@ const SubNavigation = () => {
 const SubNavigationItem = ({ item }) => {
   return (
     <li className="sub-navi-item">
-      {/* <li className="sub-navi-item border-2 border-[#222]"> */}
       <Link className="text-center" to={item.route}>
         <img
           className="sub-navi-img rounded-3xl block m-auto"
           src={item.imgUrl}
           alt="icon"
         />
-        <h2 className="py-3 text-center text-[#555] font-bold text-base max-md:text-xs ">
+        <h2 className="py-1 text-center text-[#555] font-bold text-base max-md:text-xs">
           {item.title}
         </h2>
       </Link>
@@ -75,4 +77,3 @@ const SubNavigationItem = ({ item }) => {
 };
 
 export default SubNavigation;
-// 기도요청 , 은혜공유 , 사역자 편지, 한줄선포.

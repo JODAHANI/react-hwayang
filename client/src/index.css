@@ -66,17 +66,22 @@ code {
 }
 
 .notification-img {
-  height: 25vh;
+  height: 40vh;
 }
 
 .sub-navi-item {
-  width: 7vh;
+  width: auto;
 }
 
 /* 서브 네비 아이콘 */
 .sub-navi-img {
   max-width: 80px;
   max-height: 80px;
+}
+
+/* 새가족 스크롤바 */
+.box::-webkit-scrollbar {
+  display: none;
 }
 
 @media (max-width: 640px) {

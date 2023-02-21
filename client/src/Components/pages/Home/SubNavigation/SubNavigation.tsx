@@ -6,19 +6,15 @@ import {
   RoutesText,
   RoutesImgUrl,
 } from "../../../../constants/routeItems";
-const { prayerRequest, ministerLetter, proclamation, graceSharing } = Routes;
+const { prayerRequest, thanksLetter, proclamation, graceSharing } = Routes;
 const {
   prayerRequestText,
-  ministerLetterText,
+  thanksLetterText,
   proclamationText,
   graceSharingText,
 } = RoutesText;
-const {
-  prayerRequestImg,
-  ministerLetterImg,
-  proclamationImg,
-  graceSharingImg,
-} = RoutesImgUrl;
+const { prayerRequestImg, thanksLetterImg, proclamationImg, graceSharingImg } =
+  RoutesImgUrl;
 const subNavigationItems = [
   {
     route: prayerRequest,
@@ -26,9 +22,9 @@ const subNavigationItems = [
     imgUrl: prayerRequestImg,
   },
   {
-    route: ministerLetter,
-    title: ministerLetterText,
-    imgUrl: ministerLetterImg,
+    route: thanksLetter,
+    title: thanksLetterText,
+    imgUrl: thanksLetterImg,
   },
   {
     route: graceSharing,
@@ -47,7 +43,7 @@ const SubNavigation = () => {
     <section className="max-w-screen-2xl m-auto py-5">
       <nav className="w-4/5 m-auto">
         <h2 className="text-left font-bold text-2xl text-[#222] py-8 max-sm:text-lg max-sm:py-0">
-          SHINE
+          SHINE ✨
         </h2>
         <ul className="flex justify-around">
           {subNavigationItems.map((item) => (

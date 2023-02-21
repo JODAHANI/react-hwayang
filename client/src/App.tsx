@@ -15,7 +15,7 @@ import { Routes } from "./constants/routeItems";
 import Auth from "./Components/Hoc/Auth";
 import MyPage from "./Components/pages/MyPage/Mypage";
 import Proclamation from "Components/pages/Proclamation/Proclamation";
-import MinisterLetter from "Components/pages/MinisterLetter/MinisterLetter";
+import ThanksLetter from "Components/pages/ThanksLetter/ThanksLetter";
 import NewFamily from "Components/pages/NewFamily/NewFamily";
 
 const {
@@ -30,7 +30,7 @@ const {
   prayerRequest,
   graceSharing,
   myPage,
-  ministerLetter,
+  thanksLetter,
   proclamation,
   newFamily,
 } = Routes;
@@ -54,18 +54,14 @@ const App = () => {
           path={onlineWorship}
           component={Auth(OnlineWorship, null)}
         />
-        <Route exact path={worshipGuide} component={Auth(QuietTime, null)} />
-        <Route exact path={quietTime} component={Auth(WorshipGuide, null)} />
-        <Route exact path={prayerRequest} component={Auth(PrayRequest, null)} />
+        <Route exact path={quietTime} component={Auth(QuietTime, null)} />
+        <Route exact path={worshipGuide} component={Auth(WorshipGuide, null)} />
+        <Route exact path={prayerRequest} component={Auth(PrayRequest, true)} />
         <Route exact path={graceSharing} component={Auth(GraceSharing, null)} />
         <Route exact path={myPage} component={Auth(MyPage, null)} />
         <Route exact path={proclamation} component={Auth(Proclamation, null)} />
         <Route exact path={newFamily} component={Auth(NewFamily, null)} />
-        <Route
-          exact
-          path={ministerLetter}
-          component={Auth(MinisterLetter, null)}
-        />
+        <Route exact path={thanksLetter} component={Auth(ThanksLetter, true)} />
         <Route path="*" component={Auth(NotFound, null)}></Route>
       </Switch>
     </div>

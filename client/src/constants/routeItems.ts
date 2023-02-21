@@ -12,7 +12,7 @@ export const Routes = {
   graceSharing: "/grace-sharing",
   logout: "/logout",
   myPage: "/my-page",
-  ministerLetter: "/minister-letter",
+  thanksLetter: "/thanks-letter",
   proclamation: "/proclamation",
   newFamily: "/new-family",
 };
@@ -30,13 +30,13 @@ export const RoutesText = {
   graceSharingText: "은혜공유",
   logoutText: "로그아웃",
   myPageText: "내정보",
-  ministerLetterText: "감사편지",
-  proclamationText: "한줄선포",
+  thanksLetterText: "감사편지",
+  proclamationText: "말씀선포",
 };
 
 export const RoutesImgUrl = {
   prayerRequestImg: "img/subNav/prayingHands.png",
-  ministerLetterImg: "img/subNav/letter.png",
+  thanksLetterImg: "img/subNav/letter.png",
   proclamationImg: "img/subNav/speak.png",
   graceSharingImg: "img/subNav/share.png",
 };

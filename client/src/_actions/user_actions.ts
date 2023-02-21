@@ -1,5 +1,11 @@
 import axios from "axios";
-import { LOGIN_USER, REGISTER_USER, AUTH_USER, LOGOUT } from "./types";
+import {
+  LOGIN_USER,
+  REGISTER_USER,
+  AUTH_USER,
+  LOGOUT,
+  GET_LOGOS,
+} from "./types";
 
 export const loginUser = async (dataTosubmit: object) => {
   let request = await axios.post("/api/users/login", dataTosubmit);
@@ -32,6 +38,15 @@ export const userLogout = async () => {
   const data = request.data;
   return {
     type: LOGOUT,
+    payload: data,
+  };
+};
+
+export const getProclamation = async () => {
+  const request = await axios.get("/api/users/proclamation");
+  const data = request.data;
+  return {
+    type: GET_LOGOS,
     payload: data,
   };
 };

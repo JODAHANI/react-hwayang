@@ -156,9 +156,7 @@ const MobileView = ({ user }): JSX.Element => {
             <div
               className={`${mobileSidebarInnerCss} ${rounded}  left-0 ease-in `}
             >
-              <p>임시1</p>
-              <p>임시2</p>
-              <p>임시3</p>
+              <ul></ul>
             </div>
           </div>
         ) : (

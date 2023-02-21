@@ -1,7 +1,6 @@
 import axios from "axios";
+import Swal from "sweetalert2";
 import { useState } from "react";
-import SuccessMessage from "../../layout/SuccessMessage/SuccessMessage";
-import ErrorMessage from "../../layout/ErrorMessage/ErrorMessage";
 import "../../../index.css";
 
 const inputCss =
@@ -10,11 +9,12 @@ const labelCss = "block text-gray-700 text-base font-bold mb-1";
 
 const positions = [
   { id: 0, position: "--직분선택--" },
-  { id: 1, position: "장로" },
-  { id: 2, position: "권사" },
-  { id: 3, position: "집사" },
-  { id: 4, position: "청년" },
-  { id: 5, position: "학생" },
+  { id: 1, position: "사역자" },
+  { id: 2, position: "장로" },
+  { id: 3, position: "권사" },
+  { id: 4, position: "집사" },
+  { id: 5, position: "청년" },
+  { id: 6, position: "학생" },
 ];
 
 interface userSchema {
@@ -42,7 +42,6 @@ const SignUp = (props): JSX.Element => {
   const [newUserData, setNewUserData] = useState(newUserSchema);
   const [signUpError, setSignUpError] = useState(false);
   const [signUpErrorMessage, setsignUpErrorMessage] = useState("");
-  const [signUpSuccess, setSignUpSuccess] = useState(false);
 
   const accountChangeHandler = (event: any) => {
     setNewUserData({
@@ -102,6 +101,7 @@ const SignUp = (props): JSX.Element => {
     if (newUserData.name.length < 2) {
       setsignUpErrorMessage("이름을 정확하게 입력해주세요.");
       setSignUpError(true);
+      return;
     }
     if (newUserData.position.id === 0) {
       setsignUpErrorMessage("직분을 선택해주세요.");
@@ -111,7 +111,12 @@ const SignUp = (props): JSX.Element => {
 
     axios.post("/api/users/sign-up", newUserData).then((res) => {
       if (res.data.success) {
-        setSignUpSuccess(true);
+        Swal.fire({
+          icon: "success",
+          title: "회원가입 완료.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         setTimeout(() => {
           props.history.push("/login");
         }, 1500);
@@ -136,18 +141,8 @@ const SignUp = (props): JSX.Element => {
           onSubmit={formSubmitHandler}
           onKeyPress={formEnteredHandler}
         >
-          {signUpError && !signUpSuccess && (
-            <ErrorMessage>{signUpErrorMessage}</ErrorMessage>
-          )}
-          {signUpSuccess && (
-            <>
-              <p className="mb-1 text-[#006600] text-center text-sm font-semibold">
-                회원가입 성공.
-              </p>
-              <SuccessMessage>
-                1초 뒤에 로그인페이지로 이동합니다.
-              </SuccessMessage>
-            </>
+          {signUpError && (
+            <p className="text-[#DC143C] text-sm pb-4">{signUpErrorMessage}</p>
           )}
           <div className="mb-4">
             <label className={labelCss} htmlFor="account">

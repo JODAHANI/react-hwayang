@@ -45,7 +45,7 @@ const NewFamilyNotification = () => {
     <section className="max-w-screen-2xl m-auto py-5 ">
       <div className="w-4/5 m-auto">
         <h2 className="text-left font-bold text-2xl text-[#222] pt-8 max-sm:text-lg max-sm:py-0">
-          새가족을 소개합니다
+          새가족을 소개합니다 🔥
         </h2>
         <h3 className="p-3 py-1 text-[#888] max-sm:text-xs">
           - SHINE 영성으로 맞이해주세요!
@@ -65,7 +65,7 @@ const NewFamilyNotification = () => {
 const Card = ({ item }) => {
   return (
     <li className="text-center m-5 mr-2 shadow-md rounded-lg">
-      <Link to={newFamily} className="liink block w-full max-sm:w-52">
+      <Link to={newFamily} className="liink block w-72 max-sm:w-52">
         <img
           className="block w-full rounded-lg"
           src={item.src}

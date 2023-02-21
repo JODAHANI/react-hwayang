@@ -1,19 +1,15 @@
 import "../../../index.css";
 import { useState } from "react";
+import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import SuccessMessage from "../../layout/SuccessMessage/SuccessMessage";
-import ErrorMessage from "../../layout/ErrorMessage/ErrorMessage";
 import { loginUser } from "../../../_actions/user_actions";
 
 const Login = (props: any): JSX.Element => {
   const dispatch: any = useDispatch();
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
-  const [loginError, setLoginError] = useState(false);
-  const [loginErrorMessage, setLoginErrorMessage] = useState("");
-  const [loginSuccess, setloginUpSuccess] = useState(false);
-  const [signUpSuccessMessage, setSignUpSuccessMessage] = useState("");
+  const [loginSuccess, setloginSuccess] = useState(null);
 
   const accountChangeHandler = (evevt: any) => {
     setAccount(evevt.target.value);
@@ -36,14 +32,24 @@ const Login = (props: any): JSX.Element => {
       } = res;
       if (loginSuccess) {
         const userName = res.payload.userName;
-        setloginUpSuccess(true);
-        setSignUpSuccessMessage(`${userName}님 환영합니다.`);
+        setloginSuccess(true);
+        Swal.fire({
+          icon: "success",
+          title: `${userName}님 환영합니다.`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
         setTimeout(() => {
           props.history.push("/");
         }, 1000);
       } else {
-        setLoginError(true);
-        setLoginErrorMessage(res.payload.message);
+        setloginSuccess(false);
+        Swal.fire({
+          icon: "error",
+          title: res.payload.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
       // 로그인 작업이 성공이든 실패든 input 초기화.
       setAccount("");
@@ -54,17 +60,13 @@ const Login = (props: any): JSX.Element => {
   return (
     <div className="full-screen bg-[#f0f0f0] ">
       <div className="py-14 flex justify-center">
-        <form
-          className="bg-white max-w-xs shadow-md rounded px-8 pt-8 pb-8 mb-4"
-          onSubmit={formHandler}
-        >
-          {loginSuccess && (
-            <>
-              <SuccessMessage>{signUpSuccessMessage}</SuccessMessage>
-            </>
-          )}
-          {!loginSuccess && (
-            <>
+        {loginSuccess && <></>}
+        {!loginSuccess && (
+          <>
+            <form
+              className="bg-white max-w-xs shadow-md rounded px-8 pt-8 pb-8 mb-4"
+              onSubmit={formHandler}
+            >
               <div className="mb-4">
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -86,10 +88,6 @@ const Login = (props: any): JSX.Element => {
                   onChange={passwordChangeHandler}
                 />
               </div>
-
-              {loginError && !loginSuccess && (
-                <ErrorMessage>{loginErrorMessage}</ErrorMessage>
-              )}
               <button
                 className="block w-full bg-[#35C5F0] hover:bg-[#44bee3] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-6"
                 type="submit"
@@ -110,9 +108,9 @@ const Login = (props: any): JSX.Element => {
                   회원가입
                 </Link>
               </div>
-            </>
-          )}
-        </form>
+            </form>
+          </>
+        )}
       </div>
     </div>
   );

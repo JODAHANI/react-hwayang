@@ -44,8 +44,8 @@ const Navigation = (): JSX.Element => {
     { route: worshipAdd, text: worshipAddText },
     { route: worshipResult, text: worshipResultText },
     { route: onlineWorship, text: onlineWorshipText },
-    { route: worshipGuide, text: worshipGuideText },
     { route: quietTime, text: quietTimeText },
+    { route: worshipGuide, text: worshipGuideText },
   ];
 
   return (

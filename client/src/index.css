@@ -1,13 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.full-screen {
+  width: 100%;
+  height: calc(100vh - 132px);
+  overflow: hidden;
+}
+
+.overflow-screen {
+  width: 100%;
+  height: calc(100vh);
+}
+
+/* 네비 호버시 컬러 변경.*/
+.nav-link:hover {
+  color: #3ed1fe !important;
+}
+
+/* 모달 */
+.loading-span {
+  animation: loading 1s linear infinite;
+  display: inline-block;
+  width: 1.2rem;
+  height: 1.2rem;
+  background-color: blue;
+  border-radius: 50%;
+  margin: 0.2rem;
+}
+
+.loading-span:nth-child(1) {
+  background-color: rgb(254, 148, 130);
+}
+
+.loading-span:nth-child(2) {
+  background-color: powderblue;
+  animation-delay: 0.2s;
+}
+
+.loading-span:nth-child(3) {
+  background-color: rgb(114, 255, 138);
+  animation-delay: 0.4s;
+}
+
+/* 슬릭 dots */
+
+.slick-dots {
+  bottom: 0.7rem !important;
+}
+
+.notification-img {
+  height: 40vh;
+}
+
+.sub-navi-item {
+  width: auto;
+}
+
+/* 서브 네비 아이콘 */
+.sub-navi-img {
+  max-width: 80px;
+  max-height: 80px;
+}
+
+/* 새가족 스크롤바 */
+.box::-webkit-scrollbar {
+  display: none;
+}
+
+.letter::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.35);
+  border-radius: 15px;
+}
+
+@media (max-width: 640px) {
+  .desk-top {
+    display: none;
+  }
+
+  .full-screen {
+    width: 100%;
+    height: calc(100vh - 88px);
+  }
+
+  .worship-time {
+    max-width: 250px !important;
+  }
+
+  .notification a {
+    outline: none;
+  }
+
+  .notification-img {
+    height: 33vh !important;
+    border-radius: 0;
+  }
+
+  .sub-navi-img {
+    border-radius: 10px;
+    max-width: 50px;
+    max-height: 50px;
+  }
+}
+
+@media (min-width: 641px) {
+  .mobile {
+    display: none;
+  }
+}
+
+/* 모달애니메이션 */
+@keyframes loading {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
 }

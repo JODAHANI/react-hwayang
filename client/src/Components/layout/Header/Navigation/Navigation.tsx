@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import "../../../../index.css";
 import { Routes, RoutesText } from "../../../../constants/routeItems";
 
 const {

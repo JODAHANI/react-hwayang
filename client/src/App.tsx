@@ -17,6 +17,7 @@ import MyPage from "./Components/pages/MyPage/Mypage";
 import Proclamation from "Components/pages/Proclamation/Proclamation";
 import ThanksLetter from "Components/pages/ThanksLetter/ThanksLetter";
 import NewFamily from "Components/pages/NewFamily/NewFamily";
+import NotificationDetail from "Components/pages/Home/Notification/NotificationDetail/NotificationDetail";
 
 const {
   home,
@@ -33,6 +34,7 @@ const {
   thanksLetter,
   proclamation,
   newFamily,
+  notificationDetail,
 } = Routes;
 
 const App = () => {
@@ -62,6 +64,11 @@ const App = () => {
         <Route exact path={proclamation} component={Auth(Proclamation, null)} />
         <Route exact path={newFamily} component={Auth(NewFamily, null)} />
         <Route exact path={thanksLetter} component={Auth(ThanksLetter, true)} />
+        <Route
+          exact
+          path={notificationDetail}
+          component={Auth(NotificationDetail, null)}
+        />
         <Route path="*" component={Auth(NotFound, null)}></Route>
       </Switch>
     </div>

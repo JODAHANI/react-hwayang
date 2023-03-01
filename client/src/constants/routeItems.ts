@@ -15,6 +15,7 @@ export const Routes = {
   thanksLetter: "/thanks-letter",
   proclamation: "/proclamation",
   newFamily: "/new-family",
+  notificationDetail: "/notification/:id",
 };
 
 export const RoutesText = {
